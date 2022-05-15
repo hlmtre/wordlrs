@@ -1,11 +1,8 @@
-use std::collections::HashMap;
-use std::env;
-use std::fs::File;
-use std::fs::OpenOptions;
-use std::io::Read;
-use std::io::Write;
-use std::path::Path;
-use std::path::PathBuf;
+use std::{collections::HashMap, env};
+use std::{
+    fs::{File, OpenOptions},
+    io::{Read, Write},
+};
 
 pub fn match_letters(
     perfect_letters: HashMap<u8, char>,
@@ -30,7 +27,7 @@ pub fn match_letters(
     for l in bad_letters {
         our_target_words.retain(|i| !i.contains(l));
     }
-    return our_target_words;
+    our_target_words
 }
 
 pub fn get_letter_placements(five: String) -> HashMap<u8, char> {
@@ -40,7 +37,7 @@ pub fn get_letter_placements(five: String) -> HashMap<u8, char> {
             placed_letters.insert(position.try_into().unwrap(), l);
         }
     }
-    return placed_letters;
+    placed_letters
 }
 
 pub fn save_temp_file(content: String) -> Result<(), Box<dyn std::error::Error>> {

@@ -22,7 +22,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let perfect_letters = wordlrs::get_letter_placements(five_letters);
     // go get the words
     // this is the actual list of wordle answers
-    let url = "https://gist.githubusercontent.com/cfreshman/nonexistent_dir/a03ef2cba789d8cf00c08f767e0fad7b/raw/28804271b5a226628d36ee831b0e36adef9cf449/wordle-answers-alphabetical.txt";
+    let url = "https://gist.githubusercontent.com/cfreshman/a03ef2cba789d8cf00c08f767e0fad7b/raw/28804271b5a226628d36ee831b0e36adef9cf449/wordle-answers-alphabetical.txt";
     // this is i think the list of valid guesses... that isn't valid answers.
     //let url = "https://raw.githubusercontent.com/tabatkins/wordle-list/main/words";
     #[allow(unused_assignments)]
@@ -36,6 +36,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
         v = wordlrs::get_temp_contents()?;
     } else {
+        // y u no ignore like i say?!
         #[allow(clippy::unnecessary_unwrap)]
         let body = resp.unwrap().text();
         // save it to temp
