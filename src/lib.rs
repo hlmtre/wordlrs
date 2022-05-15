@@ -1,4 +1,12 @@
 use std::collections::HashMap;
+use std::env;
+use std::fs::File;
+use std::fs::OpenOptions;
+use std::io::Read;
+use std::io::Write;
+use std::path::Path;
+use std::path::PathBuf;
+
 pub fn match_letters(
     perfect_letters: HashMap<u8, char>,
     good_letters: Vec<char>,
@@ -33,6 +41,26 @@ pub fn get_letter_placements(five: String) -> HashMap<u8, char> {
         }
     }
     return placed_letters;
+}
+
+pub fn save_temp_file(content: String) -> Result<(), Box<dyn std::error::Error>> {
+    let dir = env::temp_dir();
+    // read, write, and create if not exists
+    let mut file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .open(dir.join("wordlrs.txt"))?;
+    file.write_all(content.as_bytes())?;
+    Ok(())
+}
+
+pub fn get_temp_contents() -> Result<Vec<String>, Box<dyn std::error::Error>> {
+    let mut file = File::open(env::temp_dir().join("wordlrs.txt"))?;
+    let mut content = String::new();
+    file.read_to_string(&mut content)?;
+    let word_vector = content.split_whitespace().map(|s| s.to_string()).collect();
+    Ok(word_vector)
 }
 
 pub fn help() {
