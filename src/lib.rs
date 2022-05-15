@@ -8,13 +8,15 @@ pub fn match_letters(
     let mut our_target_words = target_strings.clone();
     // TODO i guess this is all really ineffecient
     for (k, v) in &perfect_letters {
+        // this one's confusing. here you go:
+        // get_letter_placements turns __i__ into a HashMap with contents
+        // { 2: 'i' }. we check each entry in that map to the target (possible) words.
+        // each word that DOES NOT have the known good letter in that position in its
+        // 'array' of characters is removed from the list of possible words.
         our_target_words.retain(|i| i.chars().nth(usize::from(*k)).unwrap() == *v);
     }
 
     for l in good_letters {
-        // retain is pretty fast
-        // it uses unsafe under the hood and shifts
-        // array elements to fill spaces left after removing not-matchers
         our_target_words.retain(|i| i.contains(l));
     }
     for l in bad_letters {
